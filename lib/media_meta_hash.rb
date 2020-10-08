@@ -83,7 +83,7 @@ module MediaMetaHash
                  :type => "video"
                 }.merge!(common).merge!(opts),
 
-        :twitter => { :player => [video.embed_url.sub("http://", "https://"),
+        :twitter => { :player => [(video.embed_url || video.og_url).sub("http://", "https://"),
                                   { :width => video.width,
                                     :height => video.height
                                   }],
@@ -97,7 +97,7 @@ module MediaMetaHash
   end
 
   def self.article_hash url, opts
-    { :og => { :url => url }.merge!(opts), :twitter => {}.merge!(opts) }
+    { :og => { :url => url }.merge!(opts), :twitter => { :card => "summary" }.merge!(opts) }
   end
 
   private
